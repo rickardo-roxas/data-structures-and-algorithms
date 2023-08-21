@@ -52,6 +52,117 @@
  * 2. Create a concrete class that implements the interface as a way to have a code for the Data Structure
  * (Recall: A Data Structure is based on an ADT).
  * 3. Create an application ( an executable program, hence, a class with the main method) that uses the concrete class.
+
+Sample Run:
+ Welcome to Name Searcher and Sorter.
+ This program sorts an existing array of first names.
+ This program will ask for the following:
+ Integer value given from the menu.
+ String value of name to be searched.
+
+ 1. Display names in original (unsorted order)
+ 2. Display names in descending order
+ 3. Display names in ascending order
+ 4. Search for name
+ 5. Exit the program
+
+ Type your choice: 1
+ Ozea
+ Rithik
+ Ramon
+ Patrick
+ John Rey
+ Johan
+ Basti
+ Jasper
+ Carlo
+ Diamond
+ Freskkie
+ Jan Patric
+ Ralph
+ Renz
+ Ron
+
+ 1. Display names in original (unsorted order)
+ 2. Display names in descending order
+ 3. Display names in ascending order
+ 4. Search for name
+ 5. Exit the program
+
+ Type your choice: 2
+ Ron
+ Rithik
+ Renz
+ Ramon
+ Ralph
+ Patrick
+ Ozea
+ John Rey
+ Johan
+ Jasper
+ Jan Patric
+ Freskkie
+ Diamond
+ Carlo
+ Basti
+
+ 1. Display names in original (unsorted order)
+ 2. Display names in descending order
+ 3. Display names in ascending order
+ 4. Search for name
+ 5. Exit the program
+
+ Type your choice: 3
+ Basti
+ Carlo
+ Diamond
+ Freskkie
+ Jan Patric
+ Jasper
+ Johan
+ John Rey
+ Ozea
+ Patrick
+ Ramon
+ Ralph
+ Renz
+ Rithik
+ Ron
+
+ 1. Display names in original (unsorted order)
+ 2. Display names in descending order
+ 3. Display names in ascending order
+ 4. Search for name
+ 5. Exit the program
+
+ Type your choice: 4
+ Input the name you wish to search: johan
+ johan is in the array.
+ 1. Display names in original (unsorted order)
+ 2. Display names in descending order
+ 3. Display names in ascending order
+ 4. Search for name
+ 5. Exit the program
+
+ 1. Display names in original (unsorted order)
+ 2. Display names in descending order
+ 3. Display names in ascending order
+ 4. Search for name
+ 5. Exit the program
+
+ Type your choice: 4
+ Input the name you wish to search: random
+ random is not in the array.
+ 1. Display names in original (unsorted order)
+ 2. Display names in descending order
+ 3. Display names in ascending order
+ 4. Search for name
+ 5. Exit the program
+
+ Type your choice: 5
+ Thank you for using my program.
+
+ Process finished with exit code 0
  */
 
 package prelim.exercises;
@@ -197,7 +308,6 @@ public class RoxasJohanRickardoProgrammingExercise1 {
                 return result;
             } else {
                 result = false;
-                return result;
             } // end of if-else
         } // end of for
         return result;
