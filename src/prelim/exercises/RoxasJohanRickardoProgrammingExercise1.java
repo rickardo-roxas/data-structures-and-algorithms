@@ -195,8 +195,10 @@ public class RoxasJohanRickardoProgrammingExercise1 {
             if (keyword.equalsIgnoreCase(array[index])) {
                 result = true;
                 return result;
-            } else
+            } else {
                 result = false;
+                return result;
+            } // end of if-else
         } // end of for
         return result;
     } // end of searchElement method
