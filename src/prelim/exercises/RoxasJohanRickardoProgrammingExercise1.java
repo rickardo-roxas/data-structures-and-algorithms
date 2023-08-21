@@ -56,9 +56,7 @@
 
 package prelim.exercises;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -86,23 +84,14 @@ public class RoxasJohanRickardoProgrammingExercise1 {
         String[] sortedAscending;
         String[] sortedDescending;
         byte choice = 0;
-        boolean validChoice = false;
         boolean result;
         String keyword = "";
 
         showIntroduction();
 
-
-        showMenu();
-        while (!validChoice) {
-            System.out.print("Type your choice: ");
-            choice = Byte.parseByte(keyboard.nextLine());
-
-            if (choice > 6) {
-                System.out.println("Invalid value. Try again.");
-            } else {
-                validChoice = true;
-            } // end of if-else
+        while (choice != 5) {
+            showMenu();
+            choice = choiceInput(choice);
 
             switch (choice) {
                 case 1 -> {
@@ -130,6 +119,9 @@ public class RoxasJohanRickardoProgrammingExercise1 {
                     System.out.println("Thank you for using my program.");
                     System.exit(0);
                 } // end of case 5
+                default -> {
+                    System.out.println("Invalid choice. Try again");
+                } // end of default case
             } // end of switch-case
         } // end of while
     } // end of run method
@@ -199,8 +191,12 @@ public class RoxasJohanRickardoProgrammingExercise1 {
      */
     private boolean searchElement(String keyword, String[] array) {
         boolean result = false;
-        for (String element : array) {
-            result = keyword.equalsIgnoreCase(element);
+        for (int index = 0; index < array.length; index++) {
+            if (keyword.equalsIgnoreCase(array[index])) {
+                result = true;
+                return result;
+            } else
+                result = false;
         } // end of for
         return result;
     } // end of searchElement method
@@ -250,4 +246,27 @@ public class RoxasJohanRickardoProgrammingExercise1 {
         System.out.println("4. Search for name");
         System.out.println("5. Exit the program\n");
     } // end of showMenu method
+
+    /**
+     * Process user input for choice.
+     */
+    private byte choiceInput(byte choice) {
+        Scanner keyboard = new Scanner(System.in);
+        boolean validChoice = false;
+
+        while (!validChoice) {
+            try {
+                System.out.print("Type your choice: ");
+                choice = Byte.parseByte(keyboard.nextLine());
+                if (choice > 6) {
+                    System.out.println("Invalid value. Try again.");
+                } else {
+                    validChoice = true;
+                } // end of if-else
+            }catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+            } // end of try-catch
+        } // end of while
+        return choice;
+    } // end of choiceInput method
 } // end of class RoxasJohanRickardoProgrammingExercise1
