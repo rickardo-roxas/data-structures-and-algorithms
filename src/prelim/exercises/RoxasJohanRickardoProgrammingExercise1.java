@@ -57,8 +57,10 @@
 package prelim.exercises;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class RoxasJohanRickardoProgrammingExercise1 {
     /**
@@ -79,22 +81,73 @@ public class RoxasJohanRickardoProgrammingExercise1 {
      * Controls the execution of the program.
      */
     private void run() {
+        Scanner keyboard = new Scanner(System.in);
         String[] names = readFromFile();
-    } // end of main method
+        String[] sortedAscending;
+        String[] sortedDescending;
+        byte choice = 0;
+        boolean validChoice = false;
+        boolean result;
+        String keyword = "";
+
+        showIntroduction();
+
+
+        showMenu();
+        while (!validChoice) {
+            System.out.print("Type your choice: ");
+            choice = Byte.parseByte(keyboard.nextLine());
+
+            if (choice > 6) {
+                System.out.println("Invalid value. Try again.");
+            } else {
+                validChoice = true;
+            } // end of if-else
+
+            switch (choice) {
+                case 1 -> {
+                    showElements(names);
+                } // end of case 1
+                case 2 -> {
+                    sortedDescending = sortArrayDescending(names);
+                    showElements(sortedDescending);
+                } // end of case 2
+                case 3 -> {
+                    sortedAscending = sortArrayAscending(names);
+                    showElements(sortedAscending);
+                } // end of case 3
+                case 4 ->{
+                    System.out.print("Input the name you wish to search: ");
+                    keyword = keyboard.nextLine();
+                    result = searchElement(keyword, names);
+                    if (!result) {
+                        System.out.println(keyword + " is not in the array.");
+                    } else {
+                        System.out.println(keyword + " is in the array.");
+                    } // end of if-else
+                } // end of case 4
+                case 5 -> {
+                    System.out.println("Thank you for using my program.");
+                    System.exit(0);
+                } // end of case 5
+            } // end of switch-case
+        } // end of while
+    } // end of run method
 
     /**
      * Reads contents from file and populates the String array.
      */
     private String[] readFromFile() {
-        String[] names = new String[10];
+        String[] names = new String[15];
         try {
-            BufferedReader outputStream = new BufferedReader(new FileReader("names.txt"));
-            String line = "";
+            Scanner inputStream = new Scanner(new File("names.txt"));
+            int counter = 0;
 
-            while ((line = outputStream.readLine()) != null) {
-
+            while (inputStream.hasNextLine()) {
+                names[counter] = inputStream.nextLine();
+                counter++;
             } // end of while
-            outputStream.close();
+            inputStream.close();
         } catch (IOException e1) {
             System.out.println(e1.getMessage());
             e1.printStackTrace();
@@ -103,12 +156,40 @@ public class RoxasJohanRickardoProgrammingExercise1 {
     } // end of readFromFile method
 
     /**
-     * Sorts an array of String using the Balloon Sort Algorithm.
+     * Sorts an array of String using the Balloon Sort Algorithm in descending lexicographic order.
      * @param array given String array of names.
      */
-    private void sortArray(String[] array) {
+    private String[] sortArrayDescending(String[] array) {
+        String[] sortedArray = copyArray(array);
+        for (int x = 0; x < sortedArray.length - 1; x++) {
+            for (int y = x + 1; y < sortedArray.length; y++) {
+                if (sortedArray[x].compareToIgnoreCase(sortedArray[y]) < 1) {
+                    String temp = sortedArray[x];
+                    sortedArray[x] = sortedArray[y];
+                    sortedArray[y] = temp;
+                } // end of if
+            } // end of 2nd for
+        } // end of for
+        return sortedArray;
+    } // end of sortArrayDescending method
 
-    } // end of sortArray method
+    /**
+     * Sorts an array of String using the Balloon Sort Algorithm in ascending lexicographic order.
+     * @param array given String array of names.
+     */
+    private String[] sortArrayAscending(String[] array) {
+        String[] sortedArray = copyArray(array);
+        for (int x = 0; x < sortedArray.length - 1; x++) {
+            for (int y = x + 1; y < sortedArray.length; y++) {
+                if (sortedArray[x].compareToIgnoreCase(sortedArray[y]) > 1) {
+                    String temp = sortedArray[x];
+                    sortedArray[x] = sortedArray[y];
+                    sortedArray[y] = temp;
+                } // end of if
+            } // end of 2nd for
+        } // end of for
+        return sortedArray;
+    } // end of sortArrayAscending method
 
     /**
      * Indexes an element from the String array of names using the Linear Search Algorithm.
@@ -118,8 +199,8 @@ public class RoxasJohanRickardoProgrammingExercise1 {
      */
     private boolean searchElement(String keyword, String[] array) {
         boolean result = false;
-        for (int index = 0; index < array.length; index++) {
-            result = keyword.equalsIgnoreCase(array[index]);
+        for (String element : array) {
+            result = keyword.equalsIgnoreCase(element);
         } // end of for
         return result;
     } // end of searchElement method
@@ -130,7 +211,43 @@ public class RoxasJohanRickardoProgrammingExercise1 {
      */
     private void showElements(String[] array) {
         for (String elements: array) {
-            System.out.println(elements + "\n");
+            System.out.println(elements);
         } // end of for
+        System.out.println();
     } // end of showElements method
+
+    /**
+     * Manually copies an array
+     * @param array given array of String
+     * @return duplicate of given array
+     */
+    private String[] copyArray(String[] array) {
+        String[] copiedArray = new String[array.length];
+        for (int index = 0; index < array.length; index++) {
+            copiedArray[index] = array[index];
+        } // end of for
+        return copiedArray;
+    } // end of copyArray method
+
+    /**
+     * Introduces the user to the program
+     */
+    private void showIntroduction() {
+        System.out.println("Welcome to Name Searcher and Sorter.");
+        System.out.println("This program sorts an existing array of first names.");
+        System.out.println("This program will ask for the following:");
+        System.out.println("\tInteger value given from the menu.");
+        System.out.println("\tString value of name to be searched.\n");
+    } // end of showIntroduction method
+
+    /**
+     * Displays possible user inputs for the program to execute.
+     */
+    private void showMenu() {
+        System.out.println("1. Display names in original (unsorted order)");
+        System.out.println("2. Display names in descending order");
+        System.out.println("3. Display names in ascending order");
+        System.out.println("4. Search for name");
+        System.out.println("5. Exit the program\n");
+    } // end of showMenu method
 } // end of class RoxasJohanRickardoProgrammingExercise1
